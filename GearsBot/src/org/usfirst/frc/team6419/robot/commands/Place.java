@@ -5,19 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team6419.robot.subsystems;
+package org.usfirst.frc.team6419.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * An example subsystem.  You can replace me with your own Subsystem.
+ * Place a held soda can onto the platform.
  */
-public class ExampleSubsystem extends Subsystem {
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-
-	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+public class Place extends CommandGroup {
+	public Place() {
+		addSequential(new SetElevatorSetpoint(0.25));
+		addSequential(new SetWristSetpoint(0));
+		addSequential(new OpenClaw());
 	}
 }
