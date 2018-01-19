@@ -7,11 +7,29 @@
 
 package org.usfirst.frc.team6419.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	Joystick joystick = new Joystick(0);
+	
+	public OI() {
+		JoystickButton dpadUp = new JoystickButton(joystick, 5);
+		JoystickButton dpadRight = new JoystickButton(joystick, 6);
+		JoystickButton dpadDown = new JoystickButton(joystick, 7);
+		JoystickButton dpadLeft = new JoystickButton(joystick, 8);
+		JoystickButton l2 = new JoystickButton(joystick, 9);
+		JoystickButton r2 = new JoystickButton(joystick, 10);
+		JoystickButton l1 = new JoystickButton(joystick, 11);
+		JoystickButton r1 = new JoystickButton(joystick, 12);
+	}
+	
+	
+	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
@@ -39,4 +57,5 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	
 }

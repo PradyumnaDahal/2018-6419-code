@@ -11,38 +11,29 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team6419.robot.Robot;
 
 /**
- * An example command.  You can replace me with your own command.
+ * Move the elevator to a given location. This command finishes when it is
+ * within the tolerance, but leaves the PID loop running to maintain the
+ * position. Other commands using the elevator should make sure they disable
+ * PID!
  */
-public class ExampleCommand extends Command {
-	public ExampleCommand() {
-		// Use requires() here to declare subsystem dependencies
-		requires(Robot.kExampleSubsystem);
+public class SetElevatorSetpoint extends Command {
+	private double m_setpoint;
+
+	public SetElevatorSetpoint(double setpoint) {
+		m_setpoint = setpoint;
+		requires(Robot.m_elevator);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-	}
-
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
+		Robot.m_elevator.enable();
+		Robot.m_elevator.setSetpoint(m_setpoint);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
-	}
-
-	// Called once after isFinished returns true
-	@Override
-	protected void end() {
-	}
-
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	@Override
-	protected void interrupted() {
+		return Robot.m_elevator.onTarget();
 	}
 }
