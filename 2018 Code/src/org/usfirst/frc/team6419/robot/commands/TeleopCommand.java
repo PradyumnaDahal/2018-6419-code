@@ -1,7 +1,8 @@
 package org.usfirst.frc.team6419.robot.commands;
 
 import org.usfirst.frc.team6419.robot.Robot;
-
+import org.usfirst.frc.team6419.robot.OI;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -19,6 +20,8 @@ public class TeleopCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Joystick drive = Robot.m_oi.joystick;
+    	Robot.chassis.tankDrive(drive.getRawAxis(1), drive.getRawAxis(2));
     }
 
     // Make this return true when this Command no longer needs to run execute()
