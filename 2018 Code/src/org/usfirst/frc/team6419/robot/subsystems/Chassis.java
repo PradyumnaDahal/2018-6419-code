@@ -19,11 +19,11 @@ public class Chassis extends Subsystem {
     // here. Call these from Commands.
 	public Chassis() {
 		leftDrive1 = new VictorSP(RobotMap.LEFT_DRIVE_MOTOR_1);
-		leftDrive2 = new VictorSP(RobotMap.LEFT_DRIVE_MOTOR_1);
-		rightDrive1 = new VictorSP(RobotMap.LEFT_DRIVE_MOTOR_1);
-		rightDrive2 = new VictorSP(RobotMap.LEFT_DRIVE_MOTOR_1);
+		leftDrive2 = new VictorSP(RobotMap.LEFT_DRIVE_MOTOR_2);
+		rightDrive1 = new VictorSP(RobotMap.RIGHT_DRIVE_MOTOR_1);
+		rightDrive2 = new VictorSP(RobotMap.RIGHT_DRIVE_MOTOR_2);
 		rightDrive1.setInverted(true);
-		leftDrive2.setInverted(true);
+		leftDrive1.setInverted(true);
 		left = new SpeedControllerGroup(leftDrive1, rightDrive2);
 		right = new SpeedControllerGroup(leftDrive2, rightDrive1);
 		drive = new DifferentialDrive(left, right);
@@ -34,8 +34,8 @@ public class Chassis extends Subsystem {
     	// Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public void tankDrive(double speedLeft, double speedRight) {
-    	drive.tankDrive(speedLeft, speedRight);
+    public void tankDrive(double power, double turn) {
+    	drive.arcadeDrive(power, turn, true);
     }
     
 }

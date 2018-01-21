@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6419.robot.commands.AutonomousCommandGroup;
+import org.usfirst.frc.team6419.robot.commands.TeleopCommand;
 import org.usfirst.frc.team6419.robot.subsystems.Chassis;
 
 /**
@@ -27,7 +28,7 @@ public class Robot extends TimedRobot {
 	public static Chassis chassis;
 	
 	public static OI m_oi;
-
+	TeleopCommand command;
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
@@ -42,13 +43,15 @@ public class Robot extends TimedRobot {
 		
 		m_oi = new OI();
 		
-		m_chooser.addDefault("Default Auto", new AutonomousCommandGroup());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		m_chooser.addObject("name" , new AutonomousCommandGroup());
-		
 
 		chassis = new Chassis();
 		
+		m_chooser.addDefault("Default Auto", new AutonomousCommandGroup());
+		m_chooser.addObject("name" , new AutonomousCommandGroup());
+
+		command = new TeleopCommand();
+
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -112,6 +115,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		if(command != null) command.start();
+		
 	}
 
 	/**

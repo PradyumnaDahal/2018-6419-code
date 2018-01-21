@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.VictorSP;
  */
 public class RobotMap {
 	//Port numbers
-		public static int LEFT_DRIVE_MOTOR_1 = 0; 
-		public static int RIGHT_DRIVE_MOTOR_1 = 1;
+		public static int LEFT_DRIVE_MOTOR_1 = 1; 
+		public static int RIGHT_DRIVE_MOTOR_1 = 0;
 		public static int RIGHT_DRIVE_MOTOR_2 = 2;
 		public static int LEFT_DRIVE_MOTOR_2 = 3;
 		public static Joystick stick = new Joystick(0);
