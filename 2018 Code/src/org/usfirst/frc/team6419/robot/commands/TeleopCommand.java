@@ -4,6 +4,7 @@ import org.usfirst.frc.team6419.robot.Robot;
 import org.usfirst.frc.team6419.robot.OI;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,7 +22,8 @@ public class TeleopCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Joystick drive = Robot.m_oi.joystick;
-    	Robot.chassis.tankDrive(drive.getRawAxis(1), drive.getRawAxis(2));
+    	Robot.chassis.arcadeDrive(drive.getRawAxis(1), drive.getRawAxis(2));
+    	SmartDashboard.putNumber("Gyro heading", Robot.chassis.getHeading());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team6419.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -84,6 +85,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		m_autonomousCommand = m_chooser.getSelected();
+		 String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		 char switchPosition, scalePosition, opponentSwitchLocation;
+		 
+		 switchPosition = gameData.charAt(0);
+		 scalePosition = gameData.charAt(1);
+		 opponentSwitchLocation = gameData.charAt(2);
+		 ScaleInformation.setSWITCH_LOCATION(switchPosition);
+		 ScaleInformation.setSCALE_LOCATION(scalePosition);
+		 ScaleInformation.setOPPONENT_SWITCH_LOCATION(opponentSwitchLocation);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

@@ -6,27 +6,28 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.PIDSourceType;
  /*
  */
 public class Chassis extends Subsystem {
-	 VictorSP leftDrive1;
-	 VictorSP leftDrive2;
-	 VictorSP rightDrive1;
-	 VictorSP rightDrive2;
-	 SpeedControllerGroup left, right;
-    DifferentialDrive drive;
+private	ADXRS450_Gyro gyro;
+	
+	
+private	 VictorSP frontLeft;
+private	 VictorSP backLeft;
+private	 VictorSP rightFront;
+private	 VictorSP rightBack;
+private	 SpeedControllerGroup left, right;
+private    DifferentialDrive drive;
 	 // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	public Chassis() {
-		leftDrive1 = new VictorSP(RobotMap.LEFT_DRIVE_MOTOR_1);
-		leftDrive2 = new VictorSP(RobotMap.LEFT_DRIVE_MOTOR_2);
-		rightDrive1 = new VictorSP(RobotMap.RIGHT_DRIVE_MOTOR_1);
-		rightDrive2 = new VictorSP(RobotMap.RIGHT_DRIVE_MOTOR_2);
-		rightDrive1.setInverted(true);
-		leftDrive1.setInverted(true);
-		left = new SpeedControllerGroup(leftDrive1, rightDrive2);
-		right = new SpeedControllerGroup(leftDrive2, rightDrive1);
+		initChassis();
+		initGyro();
 		drive = new DifferentialDrive(left, right);
+
 	}
 	
     public void initDefaultCommand() {
@@ -34,9 +35,46 @@ public class Chassis extends Subsystem {
     	// Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public void tankDrive(double power, double turn) {
+    /**
+     * 
+     * @param Amount to go forward. power positive is forward
+     * @param Amount to turn the robot. turn positive is counter clockwise
+     */
+    public void arcadeDrive(double power, double turn) {
+    	turn = -turn;
     	drive.arcadeDrive(power, turn, true);
+		SmartDashboard.putNumber("turn power", turn);
+		SmartDashboard.putNumber("drive", power);
     }
+    public void tankDrive(double left, double right) {
+    	drive.tankDrive(left, right);
+    }
+    private void initGyro() {
+		gyro = new ADXRS450_Gyro();
+		gyro.setPIDSourceType(PIDSourceType.kDisplacement);
+
+		gyro.calibrate();
+    }    
+    private void initChassis() {
+		frontLeft = new VictorSP(RobotMap.FRONT_LEFT_DRIVE);
+		backLeft = new VictorSP(RobotMap.BACK_LEFT_DRIVE);
+		rightFront = new VictorSP(RobotMap.RIGHT_FRONT_DRIVE);
+		rightBack = new VictorSP(RobotMap.RIGHT_BACK_DRIVE);
+		rightFront.setInverted(true);
+		backLeft.setInverted(true);
+		left = new SpeedControllerGroup(frontLeft, backLeft);
+		right = new SpeedControllerGroup(rightFront,rightBack );
+		left.setInverted(true);
+		right.setInverted(true);
+    }
+   
+    public double getHeading() {
+    	return gyro.getAngle();
+    }
+    public void resetGyro() {
+    	gyro.reset();
+    }
+    
     
 }
 

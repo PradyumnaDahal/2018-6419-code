@@ -2,25 +2,27 @@ package org.usfirst.frc.team6419.robot.commands;
 
 import org.usfirst.frc.team6419.robot.Robot;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveStraight extends Command {
-
-    public DriveStraight() {
+public class PidTurn extends Command {
+PIDController pid;
+    public PidTurn() {
+    	requires(Robot.chassis);
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.chassis);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.chassis.arcadeDrive(-1, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
